@@ -1,45 +1,59 @@
 import React, { Component } from "react";
-import nightPhone from "../assets/night_phone.png";
-import goldenBridge from "../assets/golden_gate_bridge.jpg";
+import Desktop from "../components/city/Desktop";
+import { connect } from "react-redux";
+import { fetchWeather } from "../actions/ajaxActions";
 
 interface FormProps {
+  fetchWeather: Function;
   match: {
     params: {
       city: string;
     };
   };
+  weather: Record<string, any>;
 }
 
 interface FormState {
   imageSrc: string;
+  random: number;
 }
 
 class City extends Component<FormProps, FormState> {
   constructor(props: any) {
     super(props);
 
+    if (
+      this.props.match.params.city !== "Munich" &&
+      this.props.match.params.city !== "London" &&
+      this.props.match.params.city !== "California"
+    ) {
+      window.location.replace("/404");
+      return;
+    }
+
+    if (!Object.keys(this.props.weather).length) {
+      this.props.fetchWeather();
+    }
+
+    const randomInt = (min: number, max: number) =>
+      Math.floor(Math.random() * (max - min)) + min;
+
     this.state = {
-      imageSrc: nightPhone,
+      imageSrc: "",
+      random: randomInt(1, 3),
     };
   }
 
   updateDimensions = () => {
-    if (window.innerWidth < 768) {
-      this.setState({
-        imageSrc: nightPhone,
-      });
-    } else {
-      this.setState({
-        imageSrc: goldenBridge,
-      });
-    }
+    this.setState({
+      imageSrc: require(`../assets/${
+        window.innerWidth < 768 ? "p" : "d"
+      }_${this.props.match.params.city.toLowerCase()}${this.state.random}.jpg`),
+    });
   };
 
   componentDidMount() {
-    window.addEventListener("resize", this.updateDimensions);
-  }
-
-  componentWillUnmount() {
+    this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions);
   }
 
@@ -51,10 +65,17 @@ class City extends Component<FormProps, FormState> {
           backgroundImage: `url(${this.state.imageSrc})`,
         }}
       >
-        <div className="w-6 h-6" style={{ border: "2px solid white" }}></div>
+        <Desktop
+          city={this.props.match.params.city}
+          info={this.props.weather[this.props.match.params.city]}
+        />
       </div>
     );
   }
 }
 
-export default City;
+const mstp = (state: { weatherReducer: { weather: {} } }) => ({
+  weather: state.weatherReducer.weather,
+});
+
+export default connect(mstp, { fetchWeather })(City);

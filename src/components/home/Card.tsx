@@ -1,62 +1,109 @@
 import React from "react";
-import { RiMapPinLine, RiArrowRightSLine } from "react-icons/ri";
-import { WiSnow, WiRain } from "react-icons/wi";
+import { RiMapPinLine } from "react-icons/ri";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import RightComponent from "./RightComponent";
+import LeftComponent from "./LeftComponent";
+import Tomorrow from "./Tomorrow";
+import { determineGif } from "../Utils";
 
-function Card() {
+interface FormProps {
+  city: string;
+  weather: any;
+}
+
+function Card(props: FormProps) {
+  const findMinAndMaxTemps = (list: any[]): [number, number] => {
+    const today = new Date().getDate();
+    let min: number[] = [],
+      max: number[] = [];
+
+    list.forEach((e) => {
+      if (`${e.dt_txt[8]}${e.dt_txt[9]}` === today.toString()) {
+        min.push(e.main.temp_min);
+        max.push(e.main.temp_max);
+      }
+    });
+
+    return [
+      Math.round(Math.min(...min) - 273.15),
+      Math.round(Math.max(...max) - 273.15),
+    ];
+  };
+
+  let temperature = 0,
+    minTemperature = 0,
+    maxTemperature = 0,
+    stateOfWeather = "",
+    feelsLike = 0,
+    speed = 0,
+    deg = 0,
+    idOfWeather = 0,
+    day = true,
+    list = [];
+
+  if (props.weather?.list) {
+    temperature = Math.round(props.weather.list[0].main.temp - 273.15);
+    [minTemperature, maxTemperature] = findMinAndMaxTemps(props.weather.list);
+    stateOfWeather = props.weather.list[0].weather[0].main;
+    feelsLike = Math.round(props.weather.list[0].main.temp - 273.15);
+    speed = props.weather.list[0].wind.speed;
+    deg = props.weather.list[0].wind.deg;
+    idOfWeather = props.weather.list[0].weather[0].id;
+    day = props.weather.list[0].sys.pod === "d";
+    list = props.weather.list;
+  }
+
+  const [classes, url] = determineGif(idOfWeather);
+
   return (
-    <div className="h-40 text-white mx-1 my-2" style={{ width: "400px" }}>
-      <div
-        className="w-full h-full rounded-lg"
-        style={{ backgroundImage: `url(${require("../../assets/snow.gif")})` }}
-      >
-        <div className="flex w-full h-full divide-x divide-gray-400 ">
-          <div className="w-9/12">
-            <div className="mt-2 ml-2 p-2 rounded-lg bg-gray-800 inline-block text-xs">
-              <div className="flex items-center">
-                <RiMapPinLine />
-                <div className="ml-2">Sarajevo</div>
-              </div>
-            </div>
-            <div className="w-full flex justify-center">
-              <div className="flex justify-center w-3/4">
-                <div className="flex items-center gap-5">
-                  <div className="flex flex-col text-center">
-                    <WiSnow className="h-16 w-16" />
-                    <div>Snow</div>
-                  </div>
-                  <div className="flex flex-col text-center">
-                    <div className="text-5xl">7°</div>
-                    <div className="text-lg">7/19°</div>
-                  </div>
-                  <div className="self-end text-center">
-                    <div className="bg-green-600 rounded-lg text-sm">
-                      14 Good
-                    </div>
-                    <div className="mt-1 text-sm">ES 2.3 km/h</div>
-                  </div>
+    <Link to={`/${props.city}`} className="h-40 w-full sm:w-410px">
+      <div className="flex h-40 w-full sm:w-410px">
+        <div
+          className={`text-white m-2 rounded-lg flex-grow bg-left-bottom ${classes}`}
+          style={{
+            backgroundImage: `url(${url})`,
+          }}
+        >
+          <div className="flex w-full h-full divide-x divide-gray-400 ">
+            <div className="w-9/12">
+              <div
+                className="mt-2 ml-2 p-2 rounded-lg inline-block text-xs"
+                style={{
+                  boxShadow: "0 0 15px 1px rgba(0, 0, 0, 0.75)",
+                  backdropFilter: "blur(2px)",
+                }}
+              >
+                <div className="flex items-center">
+                  <RiMapPinLine />
+                  <div className="ml-2">{props.city}</div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="w-3/12">
-            <div className="flex justify-between p-2">
-              <div className="text-xs">Sat</div>
-              <div className="text-xs flex items-center">
-                <div>More</div>
-                <RiArrowRightSLine />
+              <div className="w-full flex justify-around items-center">
+                <LeftComponent
+                  stateOfWeather={stateOfWeather}
+                  idOfWeather={idOfWeather}
+                  day={day}
+                />
+                <div className="flex flex-col text-center">
+                  <div className="text-5xl">{temperature}°</div>
+                  <div className="text-lg">
+                    {minTemperature}/{maxTemperature}°
+                  </div>
+                </div>
+                <RightComponent speed={speed} deg={deg} feelsLike={feelsLike} />
               </div>
             </div>
-            <div className="flex flex-col text-center">
-              <div className="w-full">
-                <WiRain className="h-16 w-16 mx-auto" />
-              </div>
-              <div className="text-lg">11/18°</div>
-            </div>
+            <Tomorrow idOfWeather={idOfWeather} day={day} list={list} />
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
+
+Card.prototypes = {
+  city: PropTypes.string.isRequired,
+};
 
 export default Card;
