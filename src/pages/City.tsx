@@ -3,6 +3,7 @@ import Desktop from "../components/city/Desktop";
 import { connect } from "react-redux";
 import { fetchWeather } from "../actions/ajaxActions";
 
+// match.params.city is URL (react-router) variable
 interface FormProps {
   fetchWeather: Function;
   match: {
@@ -32,6 +33,7 @@ class City extends Component<FormProps, FormState> {
     }
 
     if (!Object.keys(this.props.weather).length) {
+      // fetch from api, if city is accessed directly
       this.props.fetchWeather();
     }
 
@@ -40,11 +42,12 @@ class City extends Component<FormProps, FormState> {
 
     this.state = {
       imageSrc: "",
-      random: randomInt(1, 3),
+      random: randomInt(1, 3), // choose random photo from 2 available photos
     };
   }
 
   updateDimensions = () => {
+    // change background photo for phone/desktop
     this.setState({
       imageSrc: require(`../assets/${
         window.innerWidth < 768 ? "p" : "d"

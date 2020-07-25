@@ -19,14 +19,15 @@ class Home extends Component<FormProps, FormState> {
     super(props);
 
     const randomInt = (min: number, max: number) =>
-      Math.floor(Math.random() * (max - min)) + min;
+      Math.floor(Math.random() * (max - min)) + min; // generate random integer (1, 2, 3, 4)
 
     this.state = {
-      random: randomInt(1, 5),
+      random: randomInt(1, 5), // randomly select background, whose names end with 1 | 2 | 3 | 4
       imageSource: "",
     };
   }
 
+  // select randomly/change background on click
   setBg = (type: "default" | "click"): void => {
     if (type === "default") {
       this.setState({
@@ -35,6 +36,7 @@ class Home extends Component<FormProps, FormState> {
         }_bg${this.state.random}.jpg`),
       });
     } else if (type === "click") {
+      // increase random num, then call recursive callback
       if (this.state.random === 4) {
         return this.setState(
           {

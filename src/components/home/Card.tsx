@@ -13,6 +13,7 @@ interface FormProps {
 }
 
 function Card(props: FormProps) {
+  // find min. and max. temperatures from all timestamps from today
   const findMinAndMaxTemps = (list: any[]): [number, number] => {
     const today = new Date().getDate();
     let min: number[] = [],

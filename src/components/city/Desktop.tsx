@@ -54,6 +54,7 @@ function Desktop(props: FormProps) {
     visibility: number;
   }
 
+  // pluck relevant info of todays timestamps
   const determineTimestamps = (day: number, list: any[]): any[] => {
     const d = new Date();
     d.setDate(d.getDate() + day);
@@ -80,6 +81,7 @@ function Desktop(props: FormProps) {
     return timestamps;
   };
 
+  // rather return the last timestamps than earlier ones (e.g. 21:00 > 03:00)
   const checkTerrain = (squares: number, tss: Simplified[]) => {
     let cut: any[] = [];
 
@@ -95,6 +97,7 @@ function Desktop(props: FormProps) {
   };
 
   const adaptToWidth = (tss: Simplified[]) => {
+    // show minimum four squares of timestamps to max 8
     if (tss.length < 5) return tss;
 
     if (window.innerWidth < 950) {
@@ -110,6 +113,7 @@ function Desktop(props: FormProps) {
     return checkTerrain(8, tss);
   };
 
+  // until info from api is fetched
   const timestamps = props.info?.list
     ? adaptToWidth(determineTimestamps(day, props.info?.list))
     : [];
@@ -118,6 +122,7 @@ function Desktop(props: FormProps) {
     return <></>;
   }
 
+  // after fetch
   return (
     <>
       <div className="w-screen flex justify-between" style={{ height: "65%" }}>

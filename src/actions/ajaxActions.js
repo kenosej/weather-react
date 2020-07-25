@@ -19,6 +19,7 @@ export const fetchWeather = () => async (dispatch) => {
   dispatch({
     type: FETCH_WEATHER,
     payload: {
+      // iterating through object does not guarantee order, so I chose manually
       Munich: fetches[0],
       London: fetches[1],
       California: fetches[2],

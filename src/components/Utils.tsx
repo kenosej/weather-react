@@ -15,6 +15,8 @@ import {
 } from "react-icons/wi";
 import { RiDrizzleLine } from "react-icons/ri";
 
+// conditions based on: https://openweathermap.org/weather-conditions
+
 export const determineIcon = (
   idOfWeather: number,
   day: boolean,
