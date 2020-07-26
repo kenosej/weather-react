@@ -70,23 +70,28 @@ class Home extends Component<FormProps, FormState> {
         }}
         onClick={() => this.setBg("click")}
       >
-        <div className="flex flex-col justify-center items-center h-screen w-screen">
+        <div
+          className="flex flex-col justify-center items-center w-screen"
+          style={{ height: "95%" }}
+        >
           {Object.keys(this.props.weather).map((e, i) => {
             return <Card city={e} key={i} weather={this.props.weather[e]} />;
           })}
         </div>
-        <div className="absolute bottom-0 left-0 text-white mb-1 ml-1">
-          <a
-            className="mb-1 no-underline duration-300 cursor-pointer hover:text-gray-200"
-            href="https://github.com/kenosej/weather-react"
-          >
-            <div className="flex items-center">
-              Made by Kenan Sejmenović
-              <AiFillGithub className="ml-2 text-xl" />
+        <div className="flex text-white" style={{ height: "5%" }}>
+          <div className="mb-2 ml-2 self-end">
+            <a
+              className="mb-1 no-underline duration-300 cursor-pointer hover:text-gray-200"
+              href="https://github.com/kenosej/weather-react"
+            >
+              <div className="flex items-center">
+                Made by Kenan Sejmenović
+                <AiFillGithub className="ml-2 text-xl" />
+              </div>
+            </a>
+            <div className="text-xs">
+              Made in 3 days with: React, Redux, Typescript, Tailwind.
             </div>
-          </a>
-          <div className="text-xs">
-            Made in 3 days with: React, Redux, Typescript, Tailwind.
           </div>
         </div>
       </div>
