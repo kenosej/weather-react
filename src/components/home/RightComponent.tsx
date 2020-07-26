@@ -9,15 +9,15 @@ interface FormProps {
 function RightComponent(props: FormProps) {
   const determineLevel = (temp: number): string[] => {
     if (temp < 10 || temp > 29) {
-      return ["Bad", "red"];
+      return ["Bad", "bg-red-600"];
     }
 
     if ((temp > 9 && temp < 18) || (temp > 22 && temp < 30)) {
-      return ["ok", "yellow"];
+      return ["ok", "bg-yellow-600"];
     }
 
     if (temp > 17 && temp < 23) {
-      return ["good", "green"];
+      return ["Good", "bg-green-600"];
     }
 
     return [];
@@ -48,7 +48,7 @@ function RightComponent(props: FormProps) {
   return (
     <div className="self-end text-center">
       <div
-        className={`bg-${feelsLikeProperties[1]}-600 rounded-lg text-xs sm:text-sm p-1`}
+        className={`${feelsLikeProperties[1]} rounded-lg text-xs sm:text-sm p-1`}
       >
         {props.feelsLike} {feelsLikeProperties[0]}
       </div>
