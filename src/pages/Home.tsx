@@ -19,7 +19,7 @@ class Home extends Component<FormProps, FormState> {
     super(props);
 
     const randomInt = (min: number, max: number) =>
-      Math.floor(Math.random() * (max - min)) + min; // generate random integer (1, 2, 3, 4)
+      Math.floor(Math.random() * (max - min)) + min; // generate random integer
 
     this.state = {
       random: randomInt(1, 5), // randomly select background, whose names end with 1 | 2 | 3 | 4
