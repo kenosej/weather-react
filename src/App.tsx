@@ -1,11 +1,11 @@
 import React, { Component } from "react";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+
+import City from "./pages/City";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
 import { Provider } from "react-redux";
 import store from "./store";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
-import Home from "./pages/Home";
-import City from "./pages/City";
-import NotFound from "./pages/NotFound";
 
 class App extends Component {
   render() {

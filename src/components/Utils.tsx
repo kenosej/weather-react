@@ -1,18 +1,19 @@
-import React from "react";
 import {
-  WiDayThunderstorm,
-  WiNightThunderstorm,
-  WiDayRain,
-  WiNightRain,
-  WiDaySnow,
-  WiNightSnow,
-  WiDayFog,
-  WiNightFog,
-  WiDaySunny,
-  WiNightClear,
   WiDayCloudy,
+  WiDayFog,
+  WiDayRain,
+  WiDaySnow,
+  WiDaySunny,
+  WiDayThunderstorm,
+  WiNightClear,
   WiNightCloudy,
+  WiNightFog,
+  WiNightRain,
+  WiNightSnow,
+  WiNightThunderstorm,
 } from "react-icons/wi";
+
+import React from "react";
 import { RiDrizzleLine } from "react-icons/ri";
 
 // conditions based on: https://openweathermap.org/weather-conditions

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { WiHumidity, WiStrongWind } from "react-icons/wi";
+
 import { GiCrossedAirFlows } from "react-icons/gi";
 import { MdVisibility } from "react-icons/md";
 import { determineIcon } from "../Utils";

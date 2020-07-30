@@ -1,8 +1,8 @@
+import LeftComponent from "./LeftComponent";
+import { Link } from "react-router-dom";
 import React from "react";
 import { RiMapPinLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
 import RightComponent from "./RightComponent";
-import LeftComponent from "./LeftComponent";
 import Tomorrow from "./Tomorrow";
 import { determineGif } from "../Utils";
 

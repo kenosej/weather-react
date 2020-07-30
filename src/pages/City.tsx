@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import Desktop from "../components/city/Desktop";
 import { connect } from "react-redux";
 import { fetchWeather } from "../actions/ajaxActions";

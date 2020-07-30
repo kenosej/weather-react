@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+
+import { AiFillGithub } from "react-icons/ai";
+import Card from "../components/home/Card";
 import { connect } from "react-redux";
 import { fetchWeather } from "../actions/ajaxActions";
-import Card from "../components/home/Card";
-import { AiFillGithub } from "react-icons/ai";
 
 interface FormProps {
   fetchWeather: Function;
