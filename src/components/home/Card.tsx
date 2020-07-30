@@ -1,7 +1,6 @@
 import React from "react";
 import { RiMapPinLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 import RightComponent from "./RightComponent";
 import LeftComponent from "./LeftComponent";
 import Tomorrow from "./Tomorrow";
@@ -102,9 +101,5 @@ function Card(props: FormProps) {
     </Link>
   );
 }
-
-Card.prototypes = {
-  city: PropTypes.string.isRequired,
-};
 
 export default Card;
