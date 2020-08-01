@@ -28,11 +28,13 @@ function Tomorrow(props: FormProps) {
     const d = new Date();
     d.setDate(d.getDate() + 1); // tomorrow
 
+    const tomorrow = d.getDate() < 10 ? `0${d.getDate()}` : d.getDate();
+
     let min: number[] = [],
       max: number[] = [];
 
     list.forEach((e) => {
-      if (`${e["dt_txt"][8]}${e["dt_txt"][9]}` === d.getDate().toString()) {
+      if (`${e["dt_txt"][8]}${e["dt_txt"][9]}` === tomorrow.toString()) {
         min.push(e.main.temp_min);
         max.push(e.main.temp_max);
       }
